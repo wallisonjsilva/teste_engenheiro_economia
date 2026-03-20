@@ -4,7 +4,7 @@
 
 Este teste é direcionado para profissionais que desejam atuar como **Engenheiro de Dados Senior** na **Indra Group**.
 
-O processo seletivo prevê a contratação de 1 profissional para atuação em projetos de Big Data e Engenharia de Dados na **Secretaria de Estado da Economia de Goiás**, em regime presencial/híbrido.
+O processo seletivo prevê a contratação de 1 profissional para atuação em projetos de Big Data e Engenharia de Dados em regime presencial/híbrido.
 
 ---
 

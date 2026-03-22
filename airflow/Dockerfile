@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.1-python3.10
+FROM apache/airflow:slim-2.11.2-python3.10
 
 USER root
 # Install Java to allow running SparkSubmit natively inside airflow container if necessary (local mode),
@@ -17,4 +17,6 @@ RUN pip install --no-cache-dir \
     apache-airflow-providers-apache-spark \
     apache-airflow-providers-apache-hive \
     apache-airflow-providers-apache-kafka \
-    pyspark==3.5.1
+    psycopg2-binary \
+    pyspark==3.5.2 \
+    lxml

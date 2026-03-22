@@ -10,10 +10,16 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
     - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
+    - AIRFLOW__CORE__FERNET_KEY=C-ztmS7cxBn4crBlqvOGOosrLAhO28mp8pD3ekKc7i4=
+    - AIRFLOW_CONN_SPARK_DEFAULT=spark://spark-master:7077
   volumes:
     - ./dags:/opt/airflow/dags
     - ./plugins:/opt/airflow/plugins
     - ./logs:/opt/airflow/logs
+    - ./scripts:/opt/spark/scripts
+    - ./xmls:/opt/spark/xmls
+    - ./jars:/opt/spark/user-jars
 
 networks:
   data_network:
@@ -36,9 +42,13 @@ services:
     ports:
       - "8080:8080" # Spark Master UI
       - "7077:7077"
+    environment:
+      - PYSPARK_PYTHON=/usr/bin/python3.10
+      - PYSPARK_DRIVER_PYTHON=/usr/bin/python3.10
     volumes:
       - ./xmls:/opt/spark/xmls
-      - ./scripts:/opt/spark/scripts # Future ingestion scripts
+      - ./scripts:/opt/spark/scripts
+      - ./jars:/opt/spark/user-jars
     networks:
       - data_network
 
@@ -49,11 +59,14 @@ services:
     environment:
       - SPARK_WORKER_MEMORY=1G
       - SPARK_WORKER_CORES=1
+      - PYSPARK_PYTHON=/usr/bin/python3.10
+      - PYSPARK_DRIVER_PYTHON=/usr/bin/python3.10
     depends_on:
       - spark-master
     volumes:
       - ./xmls:/opt/spark/xmls
       - ./scripts:/opt/spark/scripts
+      - ./jars:/opt/spark/user-jars
     networks:
       - data_network
 
@@ -64,11 +77,14 @@ services:
     environment:
       - SPARK_WORKER_MEMORY=1G
       - SPARK_WORKER_CORES=1
+      - PYSPARK_PYTHON=/usr/bin/python3.10
+      - PYSPARK_DRIVER_PYTHON=/usr/bin/python3.10
     depends_on:
       - spark-master
     volumes:
       - ./xmls:/opt/spark/xmls
       - ./scripts:/opt/spark/scripts
+      - ./jars:/opt/spark/user-jars
     networks:
       - data_network
 
@@ -79,17 +95,21 @@ services:
     environment:
       - SPARK_WORKER_MEMORY=1G
       - SPARK_WORKER_CORES=1
+      - PYSPARK_PYTHON=/usr/bin/python3.10
+      - PYSPARK_DRIVER_PYTHON=/usr/bin/python3.10
     depends_on:
       - spark-master
     volumes:
       - ./xmls:/opt/spark/xmls
       - ./scripts:/opt/spark/scripts
+      - ./jars:/opt/spark/user-jars
     networks:
       - data_network
 
   # ================= KAFKA CLUSTER (Confluent Inc) =================
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
+    user: root
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -99,68 +119,98 @@ services:
 
   kafka-1:
     image: confluentinc/cp-kafka:7.5.0
+    user: root
     container_name: kafka-1
     depends_on:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:29092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,EXTERNAL://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
     volumes:
       - kafka_1_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "29092:29092"
     networks:
       - data_network
+    command: >
+      sh -c "rm -f /var/lib/kafka/data/meta.properties && /etc/confluent/docker/run"
 
   kafka-2:
     image: confluentinc/cp-kafka:7.5.0
     container_name: kafka-2
+    user: root
     depends_on:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:29093
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,EXTERNAL://localhost:29093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
     volumes:
       - kafka_2_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "29093:29093"
     networks:
       - data_network
+    command: >
+      sh -c "rm -f /var/lib/kafka/data/meta.properties && /etc/confluent/docker/run"
 
   kafka-3:
     image: confluentinc/cp-kafka:7.5.0
+    user: root
     container_name: kafka-3
     depends_on:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:29094
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:9092,EXTERNAL://localhost:29094
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
     volumes:
       - kafka_3_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "29094:29094"
     networks:
       - data_network
+    command: >
+      sh -c "rm -f /var/lib/kafka/data/meta.properties && /etc/confluent/docker/run"
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
     depends_on:
-      - kafka-1
-      - kafka-2
-      - kafka-3
+      kafka-1:
+        condition: service_healthy
+      kafka-2:
+        condition: service_healthy
+      kafka-3:
+        condition: service_healthy
     ports:
       - "8082:8080"
     environment:
@@ -178,8 +228,16 @@ services:
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
       - POSTGRES_DB=airflow
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db-metastore.sql:/docker-entrypoint-initdb.d/init-db-metastore.sql
     networks:
       - data_network
 
@@ -216,65 +274,95 @@ services:
     networks:
       - data_network
 
-  # ================= HIVE & HADOOP =================
+  # ================= HIVE 4.0.0 STACK =================
   namenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    image: apache/hadoop:3.4.0
     container_name: namenode
+    hostname: namenode
+    user: root
+    #command: ["hdfs", "namenode"]
+    command: >
+      /bin/bash -c "
+      if [ ! -f /opt/hadoop/data/name/current/VERSION ]; then
+        echo 'Formatando NameNode pela primeira vez...';
+        hdfs namenode -format -force;
+      fi;
+      hdfs namenode"
+    environment:
+      # Formato: CORE-SITE.XML_<propriedade>=valor → gera core-site.xml
+      # Formato: HDFS-SITE.XML_<propriedade>=valor → gera hdfs-site.xml
+      CORE-SITE.XML_fs.defaultFS: "hdfs://namenode:9000"
+      HDFS-SITE.XML_dfs.namenode.name.dir: "/opt/hadoop/data/name"
+      # Formata o Namenode automaticamente se o diretório estiver vazio
+      ENSURE_NAMENODE_DIR: "/opt/hadoop/data/name"
+      HDFS-SITE.XML_dfs.permissions.enabled: "false"
+      HDFS-SITE.XML_dfs.namenode.http-address: "0.0.0.0:9870"
+    volumes:
+      - hadoop_namenode:/opt/hadoop/data/name
+    ports:
+      - "9870:9870"
+      - "9000:9000"
     networks:
       - data_network
-    volumes:
-      - hadoop_namenode:/hadoop/dfs/name
-    environment:
-      - CLUSTER_NAME=test
-    env_file:
-      - ./hadoop.env
 
   datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    image: apache/hadoop:3.4.0
     container_name: datanode
-    networks:
-      - data_network
+    hostname: datanode
+    user: root
+    command: ["hdfs", "datanode"]
+    environment:
+      CORE-SITE.XML_fs.defaultFS: "hdfs://namenode:9000"
+      HDFS-SITE.XML_dfs.datanode.data.dir: "/opt/hadoop/data/data"
+      HDFS-SITE.XML_dfs.permissions.enabled: "false"
     depends_on:
       - namenode
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
-    env_file:
-      - ./hadoop.env
-
-  hive-server:
-    image: bde2020/hive:2.3.2-postgresql-metastore
-    container_name: hive-server
-    depends_on:
-      - namenode
-      - datanode
-      - hive-metastore-db
-    env_file:
-      - ./hadoop.env
-    environment:
-      - HIVE_CORE_CONF_javax_jdo_option_ConnectionURL=jdbc:postgresql://hive-metastore-db:5432/metastore
-      - SERVICE_PRECONDITION=hive-metastore-db:5432
-    ports:
-      - "10000:10000"
-    networks:
-      - data_network
-
-  hive-metastore-db:
-    image: bde2020/hive-metastore-postgresql:2.3.0
-    container_name: hive-metastore-db
+      - hadoop_datanode:/opt/hadoop/data/data
     networks:
       - data_network
 
   hive-metastore:
-    image: bde2020/hive:2.3.2-postgresql-metastore
+    image: apache/hive:4.0.0
     container_name: hive-metastore
-    env_file:
-      - ./hadoop.env
-    command: /opt/hive/bin/hive --service metastore
-    environment:
-      - SERVICE_PRECONDITION=hive-metastore-db:5432
     depends_on:
-      - hive-metastore-db
+      postgres:
+        condition: service_healthy
+      namenode:
+        condition: service_started
+    environment:
+      SERVICE_NAME: metastore
+      DB_DRIVER: postgres
+      SERVICE_OPTS: >
+        -Djavax.jdo.option.ConnectionDriverName=org.postgresql.Driver
+        -Djavax.jdo.option.ConnectionURL=jdbc:postgresql://postgres:5432/metastore
+        -Djavax.jdo.option.ConnectionUserName=hive
+        -Djavax.jdo.option.ConnectionPassword=hive
+        -Dhive.metastore.uris=thrift://hive-metastore:9083
+        -Dhive.metastore.warehouse.dir=hdfs://namenode:9000/user/hive/warehouse
+    volumes:
+      # IMPORTANTE: Você precisa ter o driver do postgres na pasta ./jars
+      - ./jars/postgresql-42.7.5.jar:/opt/hive/lib/postgres.jar:ro
     ports:
       - "9083:9083"
+    networks:
+      - data_network
+    # O Hive 4 precisa inicializar o schema se o banco for novo
+    command: >
+      /bin/bash -c "/opt/hive/bin/schematool -dbType postgres -initSchema && /opt/hive/bin/hive --service metastore"
+
+  hive-server:
+    image: apache/hive:4.0.0
+    container_name: hive-server
+    depends_on:
+      - hive-metastore
+    environment:
+      SERVICE_NAME: hiveserver2
+      SERVICE_OPTS: >
+        -Dhive.metastore.uris=thrift://hive-metastore:9083
+        -Dhive.metastore.warehouse.dir=hdfs://namenode:9000/user/hive/warehouse
+    ports:
+      - "10000:10000"
+      - "10002:10002" # HiveServer2 Web UI
     networks:
       - data_network

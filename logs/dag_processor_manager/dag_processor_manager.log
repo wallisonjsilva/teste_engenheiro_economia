@@ -2298,3 +2298,75 @@ File Path                                 PID  Runtime      # DAGs    # Errors  
 /opt/airflow/dags/dag_kafka_to_hive.py   3653  0.01s             1           0  0.05s           2026-03-22T23:35:51                      10
 /opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:35:51                      10
 ================================================================================
+[2026-03-22T23:36:43.244+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-03-22T23:36:43.245+0000] {manager.py:824} INFO - There are 3 files in /opt/airflow/dags
+[2026-03-22T23:36:51.282+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3671  0.00s             1           0  0.05s           2026-03-22T23:36:21                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3668  0.01s             1           0  0.05s           2026-03-22T23:36:21                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:36:21                      10
+================================================================================
+[2026-03-22T23:37:21.439+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3686  0.00s             1           0  0.05s           2026-03-22T23:36:51                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3683  0.01s             1           0  0.05s           2026-03-22T23:36:51                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:36:51                      10
+================================================================================
+[2026-03-22T23:37:51.595+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3701  0.00s             1           0  0.05s           2026-03-22T23:37:21                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3698  0.01s             1           0  0.05s           2026-03-22T23:37:21                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:37:21                      10
+================================================================================
+[2026-03-22T23:38:21.753+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3716  0.00s             1           0  0.05s           2026-03-22T23:37:51                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3713  0.01s             1           0  0.05s           2026-03-22T23:37:51                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:37:51                      10
+================================================================================
+[2026-03-22T23:38:51.911+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3731  0.00s             1           0  0.06s           2026-03-22T23:38:21                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3728  0.01s             1           0  0.05s           2026-03-22T23:38:21                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:38:21                      10
+================================================================================
+[2026-03-22T23:39:22.067+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3746  0.00s             1           0  0.05s           2026-03-22T23:38:51                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3743  0.01s             1           0  0.05s           2026-03-22T23:38:51                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:38:52                      10
+================================================================================
+[2026-03-22T23:39:52.230+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/dag_xml_to_kafka.py    3761  0.00s             1           0  0.06s           2026-03-22T23:39:22                      12
+/opt/airflow/dags/dag_kafka_to_hive.py   3758  0.01s             1           0  0.05s           2026-03-22T23:39:22                      10
+/opt/airflow/dags/dag_hive_queries.py                            1           0  0.05s           2026-03-22T23:39:22                      10
+================================================================================

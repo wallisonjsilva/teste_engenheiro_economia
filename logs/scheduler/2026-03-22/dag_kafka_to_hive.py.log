@@ -1446,3 +1446,52 @@ DETAIL:  Key (name)=(menu_access) already exists.
 [2026-03-22T23:36:21.142+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:36:21.142+0000] {dag.py:3239} INFO - Sync 1 DAGs
 [2026-03-22T23:36:21.151+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:36:21.151+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
 [2026-03-22T23:36:21.161+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.043 seconds
+[2026-03-22T23:36:51.285+0000] {processor.py:186} INFO - Started process (PID=3668) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:36:51.285+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:36:51.286+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:36:51.286+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:36:51.291+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:36:51.303+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:36:51.303+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:36:51.313+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:36:51.312+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:36:51.322+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.042 seconds
+[2026-03-22T23:37:21.441+0000] {processor.py:186} INFO - Started process (PID=3683) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:21.441+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:37:21.442+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:21.442+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:21.447+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:21.458+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:21.458+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:37:21.466+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:21.466+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:37:21.476+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.039 seconds
+[2026-03-22T23:37:51.598+0000] {processor.py:186} INFO - Started process (PID=3698) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:51.598+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:37:51.599+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:51.599+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:51.604+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:37:51.617+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:51.616+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:37:51.626+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:37:51.626+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:37:51.635+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.042 seconds
+[2026-03-22T23:38:21.756+0000] {processor.py:186} INFO - Started process (PID=3713) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:21.757+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:38:21.757+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:21.757+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:21.763+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:21.775+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:21.775+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:38:21.784+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:21.784+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:38:21.794+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.043 seconds
+[2026-03-22T23:38:51.913+0000] {processor.py:186} INFO - Started process (PID=3728) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:51.914+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:38:51.915+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:51.915+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:51.920+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:38:51.932+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:51.932+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:38:51.942+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:38:51.942+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:38:51.952+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.043 seconds
+[2026-03-22T23:39:22.070+0000] {processor.py:186} INFO - Started process (PID=3743) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:22.070+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:39:22.071+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:22.071+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:22.076+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:22.090+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:22.090+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:39:22.099+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:22.099+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:39:22.110+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.044 seconds
+[2026-03-22T23:39:52.232+0000] {processor.py:186} INFO - Started process (PID=3758) to work on /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:52.233+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/dag_kafka_to_hive.py for tasks to queue
+[2026-03-22T23:39:52.233+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:52.233+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:52.238+0000] {processor.py:925} INFO - DAG(s) 'dag_kafka_to_hive' retrieved from /opt/airflow/dags/dag_kafka_to_hive.py
+[2026-03-22T23:39:52.250+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:52.250+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-22T23:39:52.259+0000] {logging_mixin.py:190} INFO - [2026-03-22T23:39:52.258+0000] {dag.py:4180} INFO - Setting next_dagrun for dag_kafka_to_hive to None, run_after=None
+[2026-03-22T23:39:52.269+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/dag_kafka_to_hive.py took 0.042 seconds

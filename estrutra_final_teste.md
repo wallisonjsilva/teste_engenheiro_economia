@@ -1,4 +1,4 @@
-# Walkthrough — Pipeline NF-e
+Pipeline NF-e
 
 ## Arquitetura Implementada
 
@@ -15,31 +15,29 @@ flowchart LR
     DAG2 -.->|"trigger"| DAG3
 ```
 
-## Arquivos Criados/Modificados
-
 ### PySpark Scripts
 
 | Arquivo | Função |
 |---------|--------|
-| [xml_to_kafka.py](file:///mnt/games/projetos/teste_engenheiro_economia/scripts/xml_to_kafka.py) | Parseia 100 XMLs NF-e → publica JSON no Kafka |
-| [kafka_to_hive.py](file:///mnt/games/projetos/teste_engenheiro_economia/scripts/kafka_to_hive.py) | Consome Kafka → persiste em `nfe_notas` + `nfe_itens` no Hive |
-| [hive_queries.py](file:///mnt/games/projetos/teste_engenheiro_economia/scripts/hive_queries.py) | Executa 5 consultas analíticas → salva como tabelas Hive |
+| [xml_to_kafka.py]| Parseia 100 XMLs NF-e → publica JSON no Kafka |
+| [kafka_to_hive.py] | Consome Kafka → persiste em `nfe_notas` + `nfe_itens` no Hive |
+| [hive_queries.py] | Executa 5 consultas analíticas → salva como tabelas Hive |
 
 ### Airflow DAGs
 
 | DAG | Trigger |
 |-----|---------|
-| [dag_xml_to_kafka.py](file:///mnt/games/projetos/teste_engenheiro_economia/dags/dag_xml_to_kafka.py) | Manual → ao concluir, aciona DAG 2 |
-| [dag_kafka_to_hive.py](file:///mnt/games/projetos/teste_engenheiro_economia/dags/dag_kafka_to_hive.py) | Acionada pela DAG 1 → ao concluir, aciona DAG 3 |
-| [dag_hive_queries.py](file:///mnt/games/projetos/teste_engenheiro_economia/dags/dag_hive_queries.py) | Acionada pela DAG 2 |
+| [dag_xml_to_kafka.py] | Manual/Trigger → ao concluir, aciona DAG 2 |
+| [dag_kafka_to_hive.py] | Acionada pela DAG 1 → ao concluir, aciona DAG 3 |
+| [dag_hive_queries.py] | Acionada pela DAG 2 |
 
 ### Infraestrutura
 
 | Arquivo | Alteração |
 |---------|-----------|
-| [docker-compose.yml](file:///mnt/games/projetos/teste_engenheiro_economia/docker-compose.yml) | Adicionado volumes `scripts/` e `xmls/` ao Airflow, `spark_default` connection, `DAGS_ARE_PAUSED_AT_CREATION=False` |
-| [spark/Dockerfile](file:///mnt/games/projetos/teste_engenheiro_economia/spark/Dockerfile) | Adicionado JARs do Hive Metastore + libthrift, `pip install lxml` |
-| [airflow/Dockerfile](file:///mnt/games/projetos/teste_engenheiro_economia/airflow/Dockerfile) | Adicionado `lxml` ao pip install |
+| [docker-compose.yml] | Adicionado volumes `scripts/` e `xmls/` ao Airflow, `spark_default` connection, `DAGS_ARE_PAUSED_AT_CREATION=False` |
+| [spark/Dockerfile] | Adicionado JARs do Hive Metastore + libthrift, `pip install lxml` |
+| [airflow/Dockerfile] | Adicionado `lxml` ao pip install |
 
 ## Consultas Analíticas (DAG 3)
 
